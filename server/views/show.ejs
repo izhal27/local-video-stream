@@ -1,0 +1,37 @@
+<%- include('partials/header.ejs') %>
+<div class="max-w-lg mx-auto mt-5 md:mt-16">
+  <% if (ep > 0 && movie.type === 'serial') { %> <% for( let i = 1; i <= movie.episode; i++ ) {
+  %> <% if (i === ep) { %>
+  <span
+    class="relative inline-flex items-center px-3 py-1 border border-gray-300 bg-blue-300 text-sm font-medium rounded-md"
+  >
+    <%= i %>
+  </span>
+  <% } else { %>
+  <a
+    href="<%= `/movies/show/${movie.slug}/${i}` %>"
+    class="cursor-pointer relative inline-flex items-center px-3 py-1 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 rounded-md"
+    ><%= i %></a
+  >
+  <% } %> <% } %> <% } %> <%- include('partials/videojs.ejs', {movie, ep}) %>
+</div>
+<div>
+  <div class="block md:flex w-full md:max-w-2xl mx-auto mt-5 bg-gray-100 p-3 rounded">
+    <div class="mx-auto w-3/6 md:w-auto">
+      <img src=<%= '/images/' + movie.poster %> alt="poster" />
+    </div>
+    <div class="flex flex-wrap flex-col justify-start ml-3 mt-2 sm:mt-0">
+      <h1 class="text-xl">
+        <%= movie.title %> (<%= movie.year %>)
+      </h1>
+      <h4 class="text-xl w-full mt-3">
+        <%= movie.comments %>
+      </h4>
+      <p class="text-sm text-gray-600 mt-3"><%= movie.synopsis %></p>
+      <span class="mt-3 text-md text-gray-700 italic">
+        Genre: <%= movie.genre %>
+      </span>
+    </div>
+  </div>
+</div>
+<%- include('partials/footer.ejs') %>

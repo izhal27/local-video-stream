@@ -1,0 +1,26 @@
+<div class="inline-block md:flex md:flex-wrap w-full lg:max-w-2xl">
+  <% movies.forEach(movie => { %>
+  <div class="block md:flex w-full mt-5 bg-gray-100 p-3 rounded">
+    <div class="mx-auto w-3/6 md:w-auto">
+      <img src=<%= '/images/' + movie.poster %> alt="poster" />
+    </div>
+    <div class="flex flex-wrap ml-3 mt-2 sm:mt-0">
+      <h1 class="text-xl">
+        <%= movie.title %> (<%= movie.year %>)
+      </h1>
+      <p class="text-sm text-gray-600"><%= movie.synopsis %></p>
+      <span class="mt-1 text-xs text-gray-700 italic">
+        Genre: <%= movie.genre %>
+      </span>
+      <div class="w-full">
+        <a
+          href="<%= '/movies/show/' + movie.slug %><%= movie.episode > 1 && '/1'  %> "
+          class="inline-flex items-center h-8 px-4 m-2 text-sm text-indigo-100 transition-colors duration-150 bg-indigo-700 rounded-lg focus:shadow-outline hover:bg-indigo-800"
+        >
+          Watch
+        </a>
+      </div>
+    </div>
+  </div>
+  <% }) %>
+</div>

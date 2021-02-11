@@ -1,0 +1,21 @@
+<div class="mt-2">
+  <video
+    id="my-video"
+    class="video-js"
+    controls
+    preload="auto"
+    style="width: inherit;"
+    poster="<%= `/images/${movie.poster}` %>"
+  >
+    <source src=<%= `/play/${movie.slug}/${ep}` %> type="video/mp4" />
+    <p class="vjs-no-js">
+      To view this video please enable JavaScript, and consider upgrading to a
+      web browser that
+      <a href="https://videojs.com/html5-video-support/" target="_blank"
+        >supports HTML5 video</a
+      >
+    </p>
+    <track src=<%= `/videos/${movie.slug}/${ep}.vtt` %> kind="captions" srclang="id-ID"
+    label="Indonesian" default />
+  </video>
+</div>

@@ -1,0 +1,26 @@
+version: '3'
+services:
+  db:
+    image: postgres
+    restart: always
+    volumes:
+      - ./db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: movie-stream
+  server:
+    build: ./server
+    image: movie-stream-server
+    container_name: server
+    volumes:
+      - /app/node_modules
+      - /app/public/css/
+      - ./server:/app
+    ports:
+      - 8000:3000
+    environment:
+      DATABASE: movie-stream
+      DATABASE_HOST: db
+      DATABASE_PORT: 5432
+      DATABASE_USER: postgres
+      DATABASE_PASSWORD: postgres

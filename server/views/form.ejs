@@ -1,0 +1,268 @@
+<%- include('partials/header.ejs') %>
+<div class="mt-5">
+  <div class="mt-10 sm:mt-0">
+    <div class="md:grid md:grid-cols-3 md:gap-6">
+      <div class="md:col-span-1">
+        <div class="px-4 sm:px-0">
+          <h3 class="text-lg font-medium leading-6 text-gray-900">
+            Movie Information
+          </h3>
+          <p class="mt-1 text-sm text-gray-600">
+            Isi data Movie disini.
+          </p>
+        </div>
+      </div>
+      <div class="mt-5 md:mt-0 md:col-span-2">
+        <form action="/movies<% if (locals.currentValue?.id) { %><%= '/' + currentValue.id + '/update' %><% } else { %>/create<% } %>" method="POST">
+          <% if (locals.currentValue?.id) { %>
+            <input type="hidden" name="id" value="<%= currentValue.id %>">
+          <% } %>
+          <div class="shadow overflow-hidden sm:rounded-md">
+            <div class="px-4 py-5 bg-white sm:p-6">
+              <div class="grid grid-cols-6 gap-6">
+                <%# Title %>
+                <div class="col-span-6 sm:col-span-6">
+                  <label
+                    for="title"
+                    class="block text-sm font-medium text-gray-700"
+                    >Title</label
+                  >
+                  <input
+                    type="text"
+                    name="title"
+                    id="title"
+                    autocomplete="given-title"
+                    class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                    <% if (locals.currentValue) { %>
+                      value="<%= currentValue.title %>"
+                    <% } %>
+                    />
+                    <%# show errors %>
+                    <% if (locals.errors?.title) { %>
+                      <% Object.keys(errors.title).forEach(key => { %>
+                        <p class="text-red-700 mt-2">
+                          <%= errors.title[key] %>
+                        </p>
+                      <% }) %>
+                    <% } %>
+                </div>
+
+                <%# Comments %>
+                <div class="col-span-6 sm:col-span-6">
+                  <label
+                    for="comments"
+                    class="block text-sm font-medium text-gray-700"
+                    >Comments</label
+                  >
+                  <input
+                    type="text"
+                    name="comments"
+                    id="comments"
+                    autocomplete="given-comments"
+                    class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                    <% if (locals.currentValue) { %>
+                      value="<%= currentValue.comments %>"
+                    <% } %>
+                    />
+                </div>
+
+                <%# Genre %>
+                <div class="col-span-6 sm:col-span-6">
+                  <label
+                    for="genre"
+                    class="block text-sm font-medium text-gray-700"
+                    >Genre
+                  </label>
+                  <input
+                    type="text"
+                    name="genre"
+                    id="genre"
+                    autocomplete="genre"
+                    class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                    <% if (locals.currentValue) { %>
+                      value="<%= currentValue.genre %>"
+                    <% } %>
+                    />
+                    <%# show errors %>
+                    <% if (locals.errors?.genre) { %>
+                      <% Object.keys(errors.genre).forEach(key => { %>
+                        <p class="text-red-700 mt-2">
+                          <%= errors.genre[key] %>
+                        </p>
+                      <% }) %>
+                    <% } %>
+                </div>
+
+                <%# Year %>
+                <div class="col-span-1 sm:col-span-1">
+                  <label
+                    for="year"
+                    class="block text-sm font-medium text-gray-700"
+                    >Year</label
+                  >
+                  <input
+                    type="number"
+                    min="1878"
+                    max="3000"
+                    name="year"
+                    id="year"
+                    autocomplete="given-year"
+                    class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    value="<% if (locals.currentValue) { %><%= +locals.currentValue.year %><% } else { %><%= new Date().getFullYear() %><% } %>"
+                  />
+                  <%# show errors %>
+                    <% if (locals.errors?.year) { %>
+                      <% Object.keys(errors.year).forEach(key => { %>
+                        <p class="text-red-700 mt-2">
+                          <%= errors.year[key] %>
+                        </p>
+                      <% }) %>
+                    <% } %>
+                </div>
+
+                <%# Cast %>
+                <div class="col-span-6 sm:col-span-6">
+                  <label
+                    for="cast"
+                    class="block text-sm font-medium text-gray-700"
+                    >Cast</label
+                  >
+                  <input
+                    type="text"
+                    name="cast"
+                    id="cast"
+                    autocomplete="given-cast"
+                    class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                    <% if (locals.currentValue) { %>
+                      value="<%= currentValue.cast %>"
+                    <% } %>
+                    />
+                    <%# show errors %>
+                    <% if (locals.errors?.cast) { %>
+                      <% Object.keys(errors.cast).forEach(key => { %>
+                      <p class="text-red-700 mt-2">
+                        <%= errors.cast[key] %>
+                      </p>
+                      <% }) %>
+                    <% } %>
+                </div>
+
+                <%# Synopsis %>
+                <div class="col-span-6 >
+                <label
+                  for="synopsis"
+                  class="block text-sm font-medium text-gray-700"
+                >
+                  Synopsis
+                </label>
+                <div class="mt-1">
+                  <textarea
+                    id="synopsis"
+                    name="synopsis"
+                    rows="6"
+                    class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border-gray-300 rounded-md"
+                  ><% if (locals.currentValue) { %><%= currentValue.synopsis %><% } %></textarea
+                  >
+                </div>
+                </div>
+
+                <%# Type %>
+                <div class="col-span-6 sm:col-span-3">
+                  <label
+                    for="type"
+                    class="block text-sm font-medium text-gray-700"
+                    >Type</label
+                  >
+                  <select
+                    id="type"
+                    name="type"
+                    autocomplete="type"
+                    onchange="onChange()"
+                    class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  >
+                    <option value="movie" <% if (locals.currentValue?.type == 'movie') { %> selected<% } %>>Movie</option>
+                    <option value="serial" <% if (locals.currentValue?.type == 'serial') { %> selected <% } %>>Serial</option>
+                  </select>
+                </div>
+
+                <%# Episode %>
+                <div id="episode-container"class="col-span-3 sm:col-span-3 <% if (!locals.currentValue || locals.currentValue?.type === 'movie') { %>hidden<% } %>">
+                  <label
+                    for="episode"
+                    class="block text-sm font-medium text-gray-700"
+                    >Episode</label
+                  >
+                  <input
+                    type="number"
+                    min="1"
+                    max="100"
+                    name="episode"
+                    id="episode"
+                    autocomplete="given-episode"
+                    class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  <% if (locals.currentValue) { %>
+                    value="<%= currentValue.episode %>"
+                  <% } else { %>
+                    value="1"
+                  <% } %>
+                  />
+                  <%# show errors %>
+                  <% if (locals.errors?.episode) { %>
+                    <% Object.keys(errors.episode).forEach(key => { %>
+                      <p class="text-red-700 mt-2">
+                        <%= errors.episode[key] %>
+                      </p>
+                    <% }) %>
+                  <% } %>
+                </div>
+
+                <%# Poster %>
+                <div class="col-span-6 sm:col-span-6">
+                  <label
+                    for="poster"
+                    class="block text-sm font-medium text-gray-700"
+                    >Poster</label
+                  >
+                  <input
+                    type="text"
+                    name="poster"
+                    id="poster"
+                    autocomplete="given-poster"
+                    class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                    <% if (locals.currentValue) { %>
+                      value="<%= currentValue.poster %>"
+                    <% } %>
+                    />
+                    <%# show errors %>
+                    <% if (locals.errors?.poster) { %>
+                      <% Object.keys(errors.poster).forEach(key => { %>
+                        <p class="text-red-700 mt-2">
+                          <%= errors.poster[key] %>
+                        </p>
+                      <% }) %>
+                    <% } %>
+                </div>
+
+              </div>
+            </div>
+            <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
+              <button
+                type="submit"
+                class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              >
+                Save
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  function onChange() {
+    const type = document.getElementById("type").value;
+    document.getElementById('episode-container').classList.toggle('hidden');
+  }
+</script>
+<%- include('partials/footer.ejs') %>

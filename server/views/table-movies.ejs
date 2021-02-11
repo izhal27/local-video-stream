@@ -1,0 +1,8 @@
+<%- include('partials/header.ejs') %>
+<%- include('partials/table.ejs',
+  {
+    columnHeaders: ['Title', 'Genre', 'Year', 'Cast', 'Synopsis', 'Type', 'Episode'],
+    movies
+  })
+%>
+<%- include('partials/footer.ejs') %>
